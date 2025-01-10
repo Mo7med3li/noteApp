@@ -5,7 +5,11 @@ export default function Layout() {
   return (
     <>
       <Navbar />
-      <Outlet></Outlet>
+      <div className="container py-10">
+        <div className="pb-10 pt-20">
+          <Outlet> </Outlet>
+        </div>
+      </div>
     </>
   );
 }
