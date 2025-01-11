@@ -1,7 +1,13 @@
 import { useFormik } from "formik";
 import signupImg from "../../assets/imgs/register.png";
 import { number, object, string } from "yup";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
+  let navigate = useNavigate();
+  const [exist, setExist] = useState(null);
   const phoneRegex = /^(02)?01[0125][0-9]{8}$/;
   const validationSchema = object({
     name: string().required("Name is required"),
@@ -12,6 +18,29 @@ export default function Signup() {
     age: number().required("Age is required"),
     phone: string().required("Phone is required").matches(phoneRegex),
   });
+  async function signupSubmit(values) {
+    let tostId = toast.loading("Creating Account...");
+    try {
+      const options = {
+        url: "https://note-sigma-black.vercel.app/api/v1/users/signUp",
+        method: "POST",
+        data: values,
+      };
+      let { data } = await axios.request(options);
+      console.log(data);
+      if (data.msg === "done") {
+        toast.success("Account Created Successfully");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
+    } catch (error) {
+      toast.error(error.response.data.msg);
+      setExist(error.response.data.msg);
+    } finally {
+      toast.dismiss(tostId);
+    }
+  }
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -21,6 +50,7 @@ export default function Signup() {
       phone: "",
     },
     validationSchema,
+    onSubmit: signupSubmit,
   });
   return (
     <>
@@ -29,7 +59,7 @@ export default function Signup() {
           <img src={signupImg} alt="" />
         </div>
         <form
-          action=""
+          onSubmit={formik.handleSubmit}
           className=" shadow-lg space-y-5 grid col-span-6 p-10 lg:col-span-4"
         >
           <h1 className="text-4xl font-bold text-center">Signup Now</h1>
@@ -60,6 +90,7 @@ export default function Signup() {
             {formik.touched.email && formik.errors.email && (
               <p className="text-red-500 ">*{formik.errors.email}</p>
             )}
+            {exist && <p className="text-red-500 ">*{exist}</p>}
           </div>{" "}
           <div className="password">
             <input
