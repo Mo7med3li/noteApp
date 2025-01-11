@@ -4,9 +4,11 @@ import { object, string } from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { userContext } from "../../context/User.context";
 
 export default function Login() {
+  let { setToken } = useContext(userContext);
   let navigate = useNavigate();
   let [exist, setExist] = useState(null);
   async function loginSubmit(values) {
@@ -20,7 +22,11 @@ export default function Login() {
       let { data } = await axios.request(options);
       console.log(data);
       if (data.msg === "done") {
+        localStorage.setItem("token", data.token);
         toast.success("Logged in Successfully");
+        setToken(data.token);
+        console.log(data.token);
+
         setTimeout(() => {
           navigate("/");
         }, 1000);
