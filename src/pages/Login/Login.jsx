@@ -55,7 +55,7 @@ export default function Login() {
   });
   return (
     <>
-      <section className="grid grid-cols-6  gap-10 ">
+      <section className="grid grid-cols-6 p-20 gap-10 ">
         <div className="lg:grid col-span-2  hidden">
           <img src={signupImg} alt="" />
         </div>
