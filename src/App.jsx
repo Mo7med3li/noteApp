@@ -6,7 +6,7 @@ import Signup from "./pages/Signup/Signup";
 import { Toaster } from "react-hot-toast";
 import Userprovider from "./context/User.context";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import GuestRoute from "./components/GuestedRoute/GuestRoute";
+import GuestedRoute from "./components/GuestedRoute/GuestedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,9 +22,9 @@ function App() {
     {
       path: "/",
       element: (
-        <GuestRoute>
-          <Layout />,
-        </GuestRoute>
+        <GuestedRoute>
+          <Layout />
+        </GuestedRoute>
       ),
       children: [
         { path: "/login", element: <Login /> },

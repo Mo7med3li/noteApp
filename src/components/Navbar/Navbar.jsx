@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { userContext } from "../../context/User.context";
 
 export default function Navbar() {
+  let { token, logOut } = useContext(userContext);
   return (
     <>
       <nav className="bg-primary py-5">
@@ -12,36 +15,51 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="space-x-8">
-            <NavLink
-              to="/"
-              className={({ isActive }) => {
-                return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl ${
-                  isActive ? "before:!w-full font-bold" : ""
-                }`;
-              }}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/login"
-              className={({ isActive }) => {
-                return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1  text-2xl ${
-                  isActive ? "before:!w-full font-bold" : ""
-                }`;
-              }}
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to="/signup"
-              className={({ isActive }) => {
-                return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl ${
-                  isActive ? "before:!w-full font-bold" : ""
-                }`;
-              }}
-            >
-              Signup
-            </NavLink>
+            {token && (
+              <NavLink
+                to="/"
+                className={({ isActive }) => {
+                  return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl ${
+                    isActive ? "before:!w-full font-bold" : ""
+                  }`;
+                }}
+              >
+                Home
+              </NavLink>
+            )}
+            {!token && (
+              <NavLink
+                to="/login"
+                className={({ isActive }) => {
+                  return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1  text-2xl ${
+                    isActive ? "before:!w-full font-bold" : ""
+                  }`;
+                }}
+              >
+                Login
+              </NavLink>
+            )}
+            {!token && (
+              <NavLink
+                to="/signup"
+                className={({ isActive }) => {
+                  return `before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl ${
+                    isActive ? "before:!w-full font-bold" : ""
+                  }`;
+                }}
+              >
+                Signup
+              </NavLink>
+            )}
+            {token && (
+              <Link
+                onClick={logOut}
+                to={"/login"}
+                className={`before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl `}
+              >
+                Logout
+              </Link>
+            )}
           </div>
         </div>
       </nav>
