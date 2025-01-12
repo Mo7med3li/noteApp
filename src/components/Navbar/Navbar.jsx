@@ -54,7 +54,6 @@ export default function Navbar() {
             {token && (
               <Link
                 onClick={logOut}
-                to={"/login"}
                 className={`before:absolute relative before:w-0  hover:before:w-full before:duration-300 before:transition-[width] before:h-0.5 before:bg-black before:left-0 before:-bottom-1 text-2xl `}
               >
                 Logout
