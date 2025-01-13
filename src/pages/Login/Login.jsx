@@ -55,55 +55,57 @@ export default function Login() {
   });
   return (
     <>
-      <section className="grid grid-cols-6 p-20 gap-10 ">
-        <div className="lg:grid col-span-2  hidden">
-          <img src={signupImg} alt="" />
-        </div>
-        <form
-          className=" shadow-lg space-y-3 grid col-span-6 p-16 lg:col-span-4"
-          onSubmit={formik.handleSubmit}
-        >
-          <h1 className="text-4xl font-bold text-center">Login Now</h1>
-          <div className="email ">
-            <input
-              type="email"
-              placeholder="Enter your Email"
-              className="form-input pb-4"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              name="email"
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 ">*{formik.errors.email}</p>
-            )}
-            {exist && <p className="text-red-500 ">*{exist}</p>}
-          </div>{" "}
-          <div className="password">
-            <input
-              type="password"
-              placeholder="Enter your Password"
-              className="form-input pb-4"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              name="password"
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 ">*{formik.errors.password}</p>
-            )}
-          </div>{" "}
-          <button type="submit" className="btn">
-            Login
-          </button>
-          <p className="text-lg">
-            Don't have an account yet?{" "}
-            <Link className=" underline text-primary " to="/signup">
-              Sign up
-            </Link>
-          </p>
-        </form>
-      </section>
+      <div className="container">
+        <section className="grid grid-cols-6  gap-10 ">
+          <div className="lg:grid col-span-2  hidden">
+            <img src={signupImg} alt="" />
+          </div>
+          <form
+            className=" shadow-lg space-y-3 grid col-span-6 p-16 lg:col-span-4"
+            onSubmit={formik.handleSubmit}
+          >
+            <h1 className="text-4xl font-bold text-center">Login Now</h1>
+            <div className="email ">
+              <input
+                type="email"
+                placeholder="Enter your Email"
+                className="form-input pb-4"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                name="email"
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 ">*{formik.errors.email}</p>
+              )}
+              {exist && <p className="text-red-500 ">*{exist}</p>}
+            </div>{" "}
+            <div className="password">
+              <input
+                type="password"
+                placeholder="Enter your Password"
+                className="form-input pb-4"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                name="password"
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 ">*{formik.errors.password}</p>
+              )}
+            </div>{" "}
+            <button type="submit" className="btn">
+              Login
+            </button>
+            <p className="text-lg">
+              Don't have an account yet?{" "}
+              <Link className=" underline text-primary " to="/signup">
+                Sign up
+              </Link>
+            </p>
+          </form>
+        </section>
+      </div>
     </>
   );
 }

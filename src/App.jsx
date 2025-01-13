@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Userprovider from "./context/User.context";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GuestedRoute from "./components/GuestedRoute/GuestedRoute";
+import NoteProvider from "./context/Note.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,7 +36,9 @@ function App() {
   return (
     <>
       <Userprovider>
-        <RouterProvider router={router} />
+        <NoteProvider>
+          <RouterProvider router={router} />
+        </NoteProvider>
       </Userprovider>
       <Toaster />
     </>
