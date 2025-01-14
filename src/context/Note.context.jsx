@@ -46,12 +46,35 @@ export default function NoteProvider({ children }) {
       console.log(error);
     }
   }
+  async function deleteNote(id) {
+    let toastId = toast.loading("Deleting Note... ");
+    try {
+      const options = {
+        url: `https://note-sigma-black.vercel.app/api/v1/notes/${id}`,
+        method: "DELETE",
+        headers: {
+          token: `3b8ny__${token}`,
+        },
+      };
+      let { data } = await axios.request(options);
+      console.log(data);
+      if (data.msg === "done") {
+        toast.success("Note Deleted Successfully");
+        getNotes();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      toast.dismiss(toastId);
+    }
+  }
   return (
     <NoteContext.Provider
       value={{
         addNote,
         getNotes,
         notes,
+        deleteNote,
       }}
     >
       {children}
