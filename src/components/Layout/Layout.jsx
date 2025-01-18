@@ -7,7 +7,6 @@ export default function Layout() {
       <Navbar />
       <div className="">
         <div className="">
-          {/* pb-10 pt-20 */}
           <Outlet> </Outlet>
         </div>
       </div>

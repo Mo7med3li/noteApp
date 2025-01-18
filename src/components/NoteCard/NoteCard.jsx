@@ -2,7 +2,15 @@ import { useContext, useEffect } from "react";
 import { NoteContext } from "../../context/Note.context";
 
 export default function NoteCard() {
-  let { notes, getNotes, deleteNote } = useContext(NoteContext);
+  let {
+    notes,
+    getNotes,
+    deleteNote,
+    setShowUpdate,
+    setShow,
+    formik,
+    setUpdateId,
+  } = useContext(NoteContext);
   useEffect(() => {
     getNotes();
   }, []);
@@ -20,7 +28,18 @@ export default function NoteCard() {
             </h2>
             <p className="">{note.content}</p>
             <div className="space-x-6">
-              <i className="fa-regular fa-pen-to-square text-3xl text-yellow-600 cursor-pointer"></i>
+              <i
+                className="fa-regular fa-pen-to-square text-3xl text-yellow-600 cursor-pointer"
+                onClick={() => {
+                  setShowUpdate(true);
+                  setShow(true);
+                  setUpdateId(note._id),
+                    formik.setValues({
+                      title: note.title,
+                      content: note.content,
+                    });
+                }}
+              ></i>
               <i
                 className="fa-solid fa-trash text-red-600 text-3xl cursor-pointer"
                 onClick={() => {

@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import NoteCard from "../../components/NoteCard/NoteCard";
 import NoteBox from "../../components/NoteBox/NoteBox";
+import { NoteContext } from "../../context/Note.context";
 
 export default function Home() {
-  let [show, setShow] = useState(null);
+  let { setShow, show, setShowUpdate } = useContext(NoteContext);
   function hide() {
     setShow(false);
+    setShowUpdate(false);
   }
   return (
     <>
-      <section className="grid grid-cols-12   ">
+      <section className="grid grid-cols-12">
         {show && (
           <div
             className="fixed  bg-black  inset-0 bg-opacity-35 flex justify-center"

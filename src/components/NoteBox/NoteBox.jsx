@@ -1,26 +1,8 @@
-import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { NoteContext } from "../../context/Note.context";
-import { object, string } from "yup";
 
 export default function NoteBox({ hideBox }) {
-  const validationSchema = object({
-    title: string().required("Title is required"),
-    content: string().required("Content is required"),
-  });
-  let { addNote } = useContext(NoteContext);
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      content: "",
-    },
-    onSubmit: (values) => {
-      addNote(values);
-      hideBox();
-    },
-
-    validationSchema,
-  });
+  let { showUpdate, formik } = useContext(NoteContext);
 
   return (
     <>
@@ -71,9 +53,16 @@ export default function NoteBox({ hideBox }) {
             >
               Close
             </button>
-            <button type="submit" className="btn rounded-lg ">
-              Add Note
-            </button>
+            {!showUpdate && (
+              <button type="submit" className="btn rounded-lg ">
+                Add Note
+              </button>
+            )}
+            {showUpdate && (
+              <button type="submit" className="btn bg-lime-500 rounded-lg ">
+                UpdateNote
+              </button>
+            )}
           </div>
         </form>
       </div>
