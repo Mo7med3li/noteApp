@@ -44,6 +44,7 @@ export default function NoteProvider({ children }) {
       setNotes(data.notes);
     } catch (error) {
       console.log(error);
+      setNotes(null);
     }
   }
   async function deleteNote(id) {
